@@ -107,4 +107,4 @@ def disconnect():
 
 
 if __name__ == "__main__":
-    socketio.run(app=app, debug=True, allow_unsafe_werkzeug=True)
+    socketio.run(app=app, port=8000,debug=True, allow_unsafe_werkzeug=True)
