@@ -1,0 +1,43 @@
+name: flask-socketio-app
+services:
+  - name: flask
+    image: python:3.9
+    command: ["python", "main.py"]
+    ports:
+      - 5000:5000
+    environment:
+      - PORT=5000
+    volumes:
+      - name: app
+        mountPath: /app
+    http:
+      routes:
+        - path: /
+          destination:
+            service: flask
+            port: 5000
+    build:
+      steps:
+        - name: install-python-dependencies
+          image: python:3.9
+          command: ["pip", "install", "-r", "requirements.txt"]
+  - name: socketio
+    image: koyeb/flask-socketio:latest
+    environment:
+      - PORT=5000
+      - FLASK_APP=main.py  # Adjusted FLASK_APP to main.py
+    ports:
+      - 5000:5000
+    volumes:
+      - name: app
+        mountPath: /app
+    http:
+      routes:
+        - path: /
+          destination:
+            service: socketio
+            port: 5000
+    depends_on:
+      - flask
+volumes:
+  - name: app
