@@ -19,6 +19,7 @@
   var socketio = io();
 
   const messages = document.getElementById("messages");
+  const messageInput = document.getElementById("message");
 
   const createMessage = (name, msg) => {
     const content = `
@@ -39,11 +40,17 @@
   });
 
   const sendMessage = () => {
-    const message = document.getElementById("message");
-    if (message.value == "") return;
-    socketio.emit("message", { data: message.value });
-    message.value = "";
+    if (messageInput.value == "") return;
+    socketio.emit("message", { data: messageInput.value });
+    messageInput.value = "";
   };
+
+  // Add event listener for 'Enter' key
+  messageInput.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+      sendMessage();
+    }
+  });
 </script>
 {% for msg in messages %}
 <script type="text/javascript">
