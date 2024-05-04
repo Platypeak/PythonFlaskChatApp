@@ -1,2 +1,4 @@
 flask==2.2.5
 flask_socketio
+gunicorn
+gevent
