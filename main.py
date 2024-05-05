@@ -10,9 +10,7 @@ socketio = SocketIO(app)
 rooms = {}
 
 import logging
-log = logging.getLogger('werkzeug')
-log.setLevel(logging.ERROR)
-
+app.logger.setLevel(logging.ERROR)
 def generate_unique_code(length):
     while True:
         code = ""
