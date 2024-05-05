@@ -9,6 +9,9 @@ socketio = SocketIO(app)
 
 rooms = {}
 
+import logging
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
 
 def generate_unique_code(length):
     while True:
@@ -107,4 +110,4 @@ def disconnect():
 
 
 if __name__ == "__main__":
-    socketio.run(app=app, allow_unsafe_werkzeug=True)
+    socketio.run(app=app)
